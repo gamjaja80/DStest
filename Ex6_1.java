@@ -110,7 +110,7 @@ class LinkedList{
 }
 
 
-//연결리스트의 노드 클래스
+//linkedList and Node class
 class ListNode{
 	private String data;
 	public ListNode link;
