@@ -22,28 +22,29 @@ class Dictionary{
     
     //실행
     void run() {
-        int num = choiceMenu();
         while(true) {
+        	int num = choiceMenu();
             //6. 종료
             if(num == 6) {
                 JOptionPane.showMessageDialog(null, "프로그램을 종료합니다.");
                 System.exit(0);
             }
             switch(num){
-            case 1 :
-                input();
-                break;
-            case 2 :
-                showInfo();
-                break;
-            case 3 :
-                edit();
-                break;
-            case 4 : 
-                delete();
-                break;
-            case 5 :
-                search();
+	            case 1 :
+	                input();
+	                break;
+	            case 2 :
+	                showInfo();
+	                break;
+	            case 3 :
+	                edit();
+	                break;
+	            case 4 : 
+	                delete();
+	                break;
+	            case 5 :
+	                search();
+	                break;
             }
         }
     }
@@ -70,13 +71,13 @@ class Dictionary{
         }
     }
     
+    
     //1.입력
     void input() {
         String word = JOptionPane.showInputDialog("영어단어 입력 : \n취소는 '0'입력").trim();
         
         if(word.equals("0")) {
         	JOptionPane.showMessageDialog(null, "입력을 취소합니다.");
-        	return;
         }else {    
 	        for(int i = 0; i<eng.length; i++) {
 	            if(eng[i] == null && overlap(word)) {
@@ -90,7 +91,6 @@ class Dictionary{
 	                break;
 	            }
 	        }
-	        return;
         }
     }
     
@@ -98,19 +98,19 @@ class Dictionary{
     void showInfo() {
         String msg = "********** Word List **********";
         
-        if(eng == null) {
-        	msg += "리스트가 없습니다.";
-        	JOptionPane.showConfirmDialog(null, msg);
+        if(eng[0]==null) {
+        	msg += "\n리스트가 없습니다.";
+        	JOptionPane.showMessageDialog(null, msg);
         }else {
         	
-        	for(int i = 0; i < eng.length;i++) {
-        		if(eng[i].equals(null)) {
+        	for(int i = 0; i<eng.length;i++) {
+        		if(eng[i] == null) {
         			break;
         		}else {
         			msg +=  "\n" + (i+1) + ". " + eng[i] + " : "+ kor[i];
         		}
         	}
-        	JOptionPane.showConfirmDialog(null, msg);	
+        	JOptionPane.showMessageDialog(null, msg);	
         }
     }
     
@@ -136,13 +136,17 @@ class Dictionary{
     void delete() {
         //해당 영어 또는 한글 단어를 입력하면 두 배열에서 모두 삭제/배열 순서 당기기
         String delWord = JOptionPane.showInputDialog("삭제할 단어를 입력하세요.(종료는 '0'입력)");
+        boolean delCheck = false;
         
         if(delWord.equals("0")) {
         	JOptionPane.showMessageDialog(null, "삭제를 종료합니다");
         }else {
-        	boolean delCheck = false;
         	for(int i = 0; i < eng.length; i++) {
+        		if(eng[i] == null) {
+        			break;
+        		}
         		if(eng[i].equals(delWord) || kor[i].equals(delWord)) {
+        			delCheck = true;
         			for(int j = i;j<eng.length-1;j++) {
         				eng[j] = eng[j+1];
         				kor[j] = kor[j+1];
@@ -150,7 +154,6 @@ class Dictionary{
         			eng[eng.length-1] = null;
         			kor[kor.length-1] = null;
         			JOptionPane.showMessageDialog(null, "삭제되었습니다.");
-        			delCheck = true;
         			break;
         		}
         	}
@@ -165,12 +168,15 @@ class Dictionary{
     //5.검색
     void search() {
         String srcWord = JOptionPane.showInputDialog("검색할 단어를 입력하세요.(종료는 '0'입력");
+        boolean srcCheck = false;
         
         if(srcWord.equals("0")) {
-        	JOptionPane.showMessageDialog(null, "삭제를 종료합니다");
+        	JOptionPane.showMessageDialog(null, "검색을 종료합니다");
         }else {
-        	boolean srcCheck = false;
         	for(int i = 0; i < eng.length; i++) {
+        		if(eng[i] == null) {
+        			break;
+        		}
         		if(eng[i].equals(srcWord) || kor[i].equals(srcWord)) {
         			JOptionPane.showMessageDialog(null, (i+1) + ". " + eng[i] + " : " + kor[i]);
         			srcCheck = true;
