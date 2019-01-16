@@ -1,0 +1,23 @@
+package exceptionEx;
+
+import javax.swing.JOptionPane;
+
+public class ExceptionTest03{
+
+	public static void main(String[] args){
+
+		int[] arr = {1, 2, 3, 4, 5};
+
+		int idx = 0;
+
+		try{
+			idx = Integer.parseInt(JOptionPane.shwoInputDialog("arr배열의 index번호 입력"));
+			System.out.println(arr[idx]);
+
+		}catch(ArrayIndexOutOfBoundsException e){
+			System.out.println("배열의 길이는 " + arr.length + "입니다.");
+		}catch(Exception e){
+		System.out.println("모든 예외 처리");
+		}
+	}
+}
